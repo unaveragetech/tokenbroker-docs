@@ -42,6 +42,14 @@ specialists, business tools) are published as **cloud variants on multiple
 bases** — so the same personality is available on light, medium, and heavy
 cloud models depending on your quality/cost preference.
 
+### 6. External provider models
+
+Some catalog models aren't hosted on Ollama's infrastructure at all — they're
+served by a compute-network worker calling an external provider's own API
+directly with a contributor's personal free-tier key. Google's fast Gemini
+model (`gemini-3.6-flash`) is the first of these, contributed this way rather
+than run on any single machine.
+
 ## Model naming
 
 Model names look like:

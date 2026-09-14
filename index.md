@@ -14,6 +14,11 @@ platforms.
 
 > **[Open the live service: https://tokenbroker.hopto.org](https://tokenbroker.hopto.org)**
 
+> ### 📢 [Take back your compute →](docs/take-back-your-compute.md)
+> AI got centralized fast. This is the other option — a network nobody owns
+> outright, funded by the people who use it. Read why it matters and how to
+> join in two minutes.
+
 ## What TokenBroker is
 
 TokenBroker brokers access to hundreds of open-weights models through a
@@ -32,7 +37,11 @@ answered your request; the service masks who fulfilled it.
 
 ## Documentation
 
+- **[Take back your compute](docs/take-back-your-compute.md)** — why this
+  network exists, and how to join it.
 - [Overview](docs/overview.md) — how TokenBroker works end to end.
+- [A full breakdown of the system](docs/system-breakdown.md) — every
+  component, how requests flow, and how the economics work, with diagrams.
 - [Getting started](docs/getting-started.md) — sign up, get a key, make your first request.
 - [Compute network](docs/compute-network.md) — how the worker network works and how you can earn credits.
 - [Models catalog](docs/models-catalog.md) — what models are available and how to pick one.

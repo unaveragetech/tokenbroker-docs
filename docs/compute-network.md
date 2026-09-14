@@ -30,6 +30,8 @@ Nodes only ever receive work they can actually do — the gateway checks GPU
 VRAM, system RAM, and storage before assigning anything. A node never gets a
 job for a model it can't handle.
 
+![Dispatch tiers - which worker gets the job](../assets/charts/dispatch-tiers.svg)
+
 ## Joining the network with the worker
 
 The **TokenBroker Worker** is a small Windows application you download from
@@ -76,6 +78,17 @@ provider's models directly, calling the provider's own API with your key.
 This is a completely separate quota pool from Ollama Cloud, so an account
 with both contributes more capacity than either alone.
 
+![Known-floor capacity comparison: Ollama Cloud vs Google AI Studio](../assets/charts/capacity-comparison.svg)
+
+A brand-new worker is credited with a conservative baseline the moment it
+joins, rather than counting as zero capacity until it has a track record.
+Ollama's baseline came from a real, deliberately bounded measurement (a
+controlled one-hour test run to completion with zero rate-limit errors);
+Google doesn't publish a fixed limit at all, so that figure is a careful,
+conservative estimate instead — the [live network status
+page](https://tokenbroker.hopto.org/network) always favors real measured
+throughput over either baseline once a worker has one.
+
 ## Mobile workers (Android & iOS)
 
 The network isn't limited to desktops. A companion mobile app runs the same
@@ -87,6 +100,8 @@ than pulling models locally. Pairing a phone to your account takes a one-time
 code generated from the dashboard.
 
 ## How workers earn credits
+
+![Life of one job, from creation to credit](../assets/charts/job-lifecycle.svg)
 
 Every completed, accepted job pays **credits** into your account. Quality
 matters:

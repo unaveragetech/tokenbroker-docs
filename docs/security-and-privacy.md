@@ -11,7 +11,10 @@ the public helps nobody.
   in plaintext. Sessions use hashed, expiring tokens. Login attempts are
   rate-limited per IP to blunt brute force.
 - **Your keys** — API keys are shown once at creation, stored only as hashes,
-  revocable at any time, and can carry per-key daily spend caps.
+  revocable at any time, and can carry per-key daily spend caps. If you
+  contribute an external provider key (e.g. Google AI Studio) as a worker
+  operator, it's encrypted at rest the same way, never shown back to you in
+  plaintext, and only ever used to serve jobs on your own account's behalf.
 - **Your money** — billing uses holds: funds are reserved per request and
   released when the request settles. No double-charging, no silent
   overcharges.

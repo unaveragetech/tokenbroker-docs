@@ -1,0 +1,46 @@
+<svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="900" height="460" fill="#ffffff"/>
+
+  <!-- Your app -->
+  <rect x="30" y="200" width="140" height="60" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="100" y="235" text-anchor="middle" font-size="15" fill="#1e1b4b" font-weight="600">Your app</text>
+
+  <!-- arrow to gateway -->
+  <line x1="170" y1="230" x2="248" y2="230" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="205" y="218" text-anchor="middle" font-size="11" fill="#57606a">HTTPS</text>
+
+  <!-- Gateway -->
+  <rect x="250" y="170" width="200" height="120" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="350" y="200" text-anchor="middle" font-size="16" fill="#14532d" font-weight="700">TokenBroker Gateway</text>
+  <text x="350" y="222" text-anchor="middle" font-size="12" fill="#166534">Auth &#183; billing &#183; routing</text>
+  <text x="350" y="242" text-anchor="middle" font-size="12" fill="#166534">masks who fulfilled it</text>
+  <text x="350" y="262" text-anchor="middle" font-size="12" fill="#166534">picks the best available path</text>
+
+  <!-- arrows down to two planes -->
+  <line x1="330" y1="290" x2="200" y2="345" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="400" y1="290" x2="620" y2="345" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Hosted cloud models -->
+  <rect x="60" y="350" width="280" height="90" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="200" y="378" text-anchor="middle" font-size="14" fill="#7c2d12" font-weight="700">Hosted cloud models</text>
+  <text x="200" y="398" text-anchor="middle" font-size="12" fill="#9a3412">Ollama Cloud &#183; other providers</text>
+  <text x="200" y="416" text-anchor="middle" font-size="12" fill="#9a3412">run directly by the gateway</text>
+
+  <!-- Compute network -->
+  <rect x="480" y="350" width="360" height="90" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="660" y="373" text-anchor="middle" font-size="14" fill="#1e3a8a" font-weight="700">Compute network (contributed capacity)</text>
+  <text x="530" y="398" font-size="12" fill="#1e40af">Desktop</text>
+  <text x="605" y="398" font-size="12" fill="#1e40af">Android</text>
+  <text x="680" y="398" font-size="12" fill="#1e40af">iOS</text>
+  <text x="740" y="398" font-size="12" fill="#1e40af">+ your API key</text>
+  <text x="660" y="420" text-anchor="middle" font-size="12" fill="#1e40af">local models, Ollama Cloud, or your own provider key (Google AI Studio, ...)</text>
+
+  <!-- response path back -->
+  <path d="M 660 350 C 660 300, 450 300, 450 290" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+  <text x="560" y="305" text-anchor="middle" font-size="11" fill="#64748b">response returns the same way</text>
+</svg>

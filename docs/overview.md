@@ -19,17 +19,14 @@ TokenBroker solves this with one unified service:
 
 ## How a request flows
 
-```
-Your app ──► tokenbroker.hopto.org ──► TokenBroker gateway
-                                            │
-                                            ├──► Cloud model (hosted on Ollama Cloud)
-                                            │
-                                            └──► Compute network (worker nodes)
-                                                 └──► Best available node answers
+![How a request flows through TokenBroker](../assets/charts/architecture.svg)
 
-The response travels back the same way. You never see the node that did the
-work.
-```
+Every request lands on the gateway first. The gateway decides, per request,
+whether to answer it directly with a hosted cloud model or hand it to the
+compute network — and if the compute network, which of the many contributed
+workers is the right one. The response always travels back through the
+gateway the same way; you never see or need to know which machine (or whose)
+actually answered.
 
 The public entry point is [https://tokenbroker.hopto.org](https://tokenbroker.hopto.org),
 which is delivered through Cloudflare's edge network. That means:
@@ -88,3 +85,5 @@ more capacity exists, and the cheaper access becomes for everyone.
 
 Ready to try it? **[Getting started](getting-started.md)**.
 Curious about the network? **[Compute network](compute-network.md)**.
+Want every detail in one place? **[A full breakdown of the system](system-breakdown.md)**.
+Want to know why any of this exists? **[Take back your compute](take-back-your-compute.md)**.

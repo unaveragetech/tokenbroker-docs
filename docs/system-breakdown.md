@@ -114,9 +114,12 @@ trust:
 ## Where to go deeper
 
 - [Overview](overview.md) — the short version.
+- [Tested & verified](tested-and-verified.md) — real measurements, real
+  limits, and a real networking bug we found and fixed.
 - [Compute network](compute-network.md) — how to actually join and earn.
 - [Models catalog](models-catalog.md) — what you can run today.
 - [Pricing & credits](pricing-and-credits.md) — the economics in detail.
 - [Security & privacy](security-and-privacy.md) — the honest controls and their limits.
 - [API reference](api-reference.md) — if you're building against it.
+- [FAQ](faq.md) — quick answers, organized by topic.
 - **[Take back your compute](take-back-your-compute.md)** — why any of this exists.

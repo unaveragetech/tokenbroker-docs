@@ -1,0 +1,27 @@
+<svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif">
+  <rect width="640" height="380" fill="#ffffff"/>
+  <text x="320" y="28" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2328">What a quality tier is actually worth</text>
+  <text x="320" y="46" text-anchor="middle" font-size="12" fill="#57606a">redeemable value per 1,000 output tokens your node completes (base rate: 10 credits / 1,000 tokens)</text>
+
+  <line x1="60" y1="310" x2="580" y2="310" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Basic: $0.05 -->
+  <rect x="100" y="270" width="110" height="40" rx="6" fill="#94a3b8"/>
+  <text x="155" y="258" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">$0.05</text>
+  <text x="155" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">Basic</text>
+  <text x="155" y="349" text-anchor="middle" font-size="10.5" fill="#8b949e">$0.005 / credit</text>
+
+  <!-- Standard: $0.10 -->
+  <rect x="265" y="230" width="110" height="80" rx="6" fill="#3b82f6"/>
+  <text x="320" y="218" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">$0.10</text>
+  <text x="320" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">Standard</text>
+  <text x="320" y="349" text-anchor="middle" font-size="10.5" fill="#8b949e">$0.01 / credit</text>
+
+  <!-- Premium: $0.20 -->
+  <rect x="430" y="150" width="110" height="160" rx="6" fill="#16a34a"/>
+  <text x="485" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">$0.20</text>
+  <text x="485" y="332" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2328">Premium</text>
+  <text x="485" y="349" text-anchor="middle" font-size="10.5" fill="#8b949e">$0.02 / credit</text>
+
+  <text x="320" y="370" text-anchor="middle" font-size="10.5" fill="#8b949e">Tier is earned by consistency and response quality, not a one-time setting - a reliable node can climb from basic to premium over time.</text>
+</svg>

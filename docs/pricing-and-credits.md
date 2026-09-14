@@ -40,16 +40,23 @@ redeemable, but not a bank balance.
 
 ## Credit quality tiers
 
-The network grades nodes on response quality, consistency, and reliability:
+The network grades nodes on response quality, consistency, and reliability.
+The base earning rate is **10 credits per 1,000 real output tokens** your
+node completes; what a credit is actually worth depends on your tier:
 
-| Tier | Who gets it | What it's worth |
-| --- | --- | --- |
-| Premium | Well-performing, consistent nodes | Most valuable per credit |
-| Standard | Normal, reliable nodes | Standard redemption value |
-| Basic | Lower-quality or inconsistent nodes | Least valuable per credit |
+![What a quality tier is actually worth](../assets/charts/credit-economics.svg)
 
-Your node's tier affects how fast your credits accrue real value. The
-dashboard shows your tier and quality score so you know where you stand.
+| Tier | Who gets it | Value per credit | Per 1,000 output tokens |
+| --- | --- | --- | --- |
+| Premium | Well-performing, consistent nodes | $0.02 | $0.20 |
+| Standard | Normal, reliable nodes | $0.01 | $0.10 |
+| Basic | Lower-quality or inconsistent nodes | $0.005 | $0.05 |
+
+Tier isn't a one-time label — it's derived from your node's ongoing accepted-
+vs-failed ratio, latency, and gaming-penalty history, so a node that keeps
+producing quality responses climbs tiers over time. The dashboard shows your
+current tier and quality score so you always know where you stand and what
+it would take to move up.
 
 ## Fairness & abuse controls
 
@@ -63,6 +70,21 @@ To keep credits meaningful:
 Real work, real credits. The system is designed to reward nodes that serve
 real members and paying customers first.
 
+## Referrals: $5 for you, $5 for them
+
+Every account has a personal referral code (find it on your dashboard). When
+someone signs up using it and proves they're a real, active user — either by
+registering a worker node or by completing a real payment, whichever happens
+first — **both of you get $5.00 credited to your wallet**, once, no strings
+attached beyond that. There's no cap on how many people you can refer, and
+the reward is idempotent on the backend, so it's paid exactly once per
+referred account no matter what triggers it.
+
+This exists for the same reason the rest of the network does: every genuinely
+new, independent member — someone who wasn't going to sign up anyway —
+makes the network stronger for everyone already in it, not just for the
+person who referred them.
+
 ## Refunds & disputes
 
 Wallet credits are refundable at the operator's discretion per the terms of
@@ -73,3 +95,10 @@ service. Contact the operator through the dashboard for any billing issue.
 The website is ad-supported (Google AdSense and similar providers) to keep
 entry costs low. Ads never appear inside API responses — only on the site
 itself.
+
+## Related reading
+
+- [Tested & verified](tested-and-verified.md) — the real quality-gate
+  thresholds credits are checked against.
+- [Compute network](compute-network.md) — how to start earning.
+- [FAQ](faq.md#payments) — quick answers on billing and refunds.

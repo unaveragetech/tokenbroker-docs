@@ -1,0 +1,42 @@
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif">
+  <rect width="700" height="400" fill="#ffffff"/>
+  <text x="350" y="28" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2328">What your hardware is actually worth</text>
+  <text x="350" y="46" text-anchor="middle" font-size="12" fill="#57606a">measured local throughput on a small (~3B parameter) model, by GPU VRAM</text>
+
+  <line x1="70" y1="330" x2="650" y2="330" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- bars: CPU-only ~20, 4GB 55, 8GB 90, 12GB 120, 16GB 140, cloud-enabled floor 100 -->
+  <!-- scale: 140 tok/s -> 220px tall max -->
+  <!-- CPU-only -->
+  <rect x="95" y="290" width="70" height="40" rx="5" fill="#94a3b8"/>
+  <text x="130" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">~20 tok/s</text>
+  <text x="130" y="350" text-anchor="middle" font-size="12" fill="#1f2328">CPU only</text>
+
+  <!-- 4GB -->
+  <rect x="185" y="243" width="70" height="87" rx="5" fill="#60a5fa"/>
+  <text x="220" y="231" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">~55 tok/s</text>
+  <text x="220" y="350" text-anchor="middle" font-size="12" fill="#1f2328">4 GB GPU</text>
+
+  <!-- 8GB -->
+  <rect x="275" y="188" width="70" height="142" rx="5" fill="#3b82f6"/>
+  <text x="310" y="176" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">~90 tok/s</text>
+  <text x="310" y="350" text-anchor="middle" font-size="12" fill="#1f2328">8 GB GPU</text>
+
+  <!-- cloud-enabled floor -->
+  <rect x="365" y="204" width="70" height="126" rx="5" fill="#f59e0b"/>
+  <text x="400" y="192" text-anchor="middle" font-size="13" font-weight="700" fill="#78350f">~100 tok/s</text>
+  <text x="400" y="345" text-anchor="middle" font-size="12" fill="#1f2328">any GPU,</text>
+  <text x="400" y="360" text-anchor="middle" font-size="12" fill="#1f2328">cloud-enabled</text>
+
+  <!-- 12GB -->
+  <rect x="455" y="141" width="70" height="189" rx="5" fill="#2563eb"/>
+  <text x="490" y="129" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">~120 tok/s</text>
+  <text x="490" y="350" text-anchor="middle" font-size="12" fill="#1f2328">12 GB GPU</text>
+
+  <!-- 16GB -->
+  <rect x="545" y="110" width="70" height="220" rx="5" fill="#1d4ed8"/>
+  <text x="580" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">~140 tok/s</text>
+  <text x="580" y="350" text-anchor="middle" font-size="12" fill="#1f2328">16 GB GPU</text>
+
+  <text x="350" y="383" text-anchor="middle" font-size="10.5" fill="#8b949e">A node with no serious GPU still competes: enabling Ollama Cloud gives any machine a ~100 tok/s floor by running the heavy work off-device.</text>
+</svg>

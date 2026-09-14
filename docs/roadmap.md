@@ -20,6 +20,10 @@ order of priority:
 - Growing the cloud model family coverage for custom personas.
 - Improving worker onboarding and earnings transparency.
 - More external cloud providers as verified free-tier keys become available.
+- A real measured probe for Google AI Studio's throughput, the same
+  deliberately bounded method already used for Ollama Cloud — see [Tested &
+  verified](tested-and-verified.md) for why the current figure is still
+  labeled an estimate.
 
 ## Next
 

@@ -42,6 +42,8 @@ answered your request; the service masks who fulfilled it.
 - [Overview](docs/overview.md) — how TokenBroker works end to end.
 - [A full breakdown of the system](docs/system-breakdown.md) — every
   component, how requests flow, and how the economics work, with diagrams.
+- [Tested & verified](docs/tested-and-verified.md) — real measurements, real
+  limits, and a real bug we found and fixed, in our own words.
 - [Getting started](docs/getting-started.md) — sign up, get a key, make your first request.
 - [Compute network](docs/compute-network.md) — how the worker network works and how you can earn credits.
 - [Models catalog](docs/models-catalog.md) — what models are available and how to pick one.
@@ -59,8 +61,10 @@ answered your request; the service masks who fulfilled it.
 | URL | [https://tokenbroker.hopto.org](https://tokenbroker.hopto.org) |
 | Sign up | Email & password, or Google |
 | Models | Hundreds (open-weights + cloud-hosted, incl. uncensored) |
-| Compute | Distributed worker network + Ollama Cloud |
+| Compute | Distributed worker network (desktop, Android, iOS) + Ollama Cloud + external providers |
+| Live status | Public, real-time at [/network](https://tokenbroker.hopto.org/network) |
 | Payments | Cards & Cash App via Square, wallet + plans |
+| Referrals | $5 to you, $5 to them, once they're a real active user |
 
 ---
 

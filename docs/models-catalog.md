@@ -4,6 +4,11 @@ TokenBroker's catalog is intentionally broad. Every model has a description,
 its own pricing, and (for local models) its hardware requirements, so you can
 pick the right tool for the job.
 
+The catalog isn't fixed — it grows as the network grows. Every new provider
+integration, every self-hosted model a contributor's node can run, and every
+community-imported model adds to the same list, kept live and up to date on
+the dashboard's Models page.
+
 ## Where models come from
 
 ### 1. Local open-weights models
@@ -50,6 +55,18 @@ directly with a contributor's personal free-tier key. Google's fast Gemini
 model (`gemini-3.6-flash`) is the first of these, contributed this way rather
 than run on any single machine.
 
+## How much hardware a model actually needs
+
+Local models scale with your GPU, and the relationship is roughly linear
+until you run out of VRAM entirely and fall back to CPU:
+
+![What your hardware is actually worth](../assets/charts/hardware-throughput.svg)
+
+This is also why native cloud models exist: a model like a 120B-parameter
+GPT-OSS variant would need dozens of gigabytes of VRAM no consumer card has —
+running it on Ollama's infrastructure instead means a laptop with no GPU at
+all can still request it and get a real answer.
+
 ## Model naming
 
 Model names look like:
@@ -81,3 +98,12 @@ compute network.
 The catalog is community-driven. If there's a model you want, ask — the
 network regularly imports proven models from Hugging Face, rebuilds them as
 native Ollama models, and publishes them so any node can serve them.
+
+## Related reading
+
+- [Tested & verified](tested-and-verified.md) — real model-name retirements
+  we caught by testing live instead of trusting a reference list, and what
+  structured-output support actually looks like today.
+- [API reference](api-reference.md) — how to list and call models
+  programmatically.
+- [Compute network](compute-network.md) — how a model actually gets served.

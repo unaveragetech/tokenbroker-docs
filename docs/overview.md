@@ -86,4 +86,5 @@ more capacity exists, and the cheaper access becomes for everyone.
 Ready to try it? **[Getting started](getting-started.md)**.
 Curious about the network? **[Compute network](compute-network.md)**.
 Want every detail in one place? **[A full breakdown of the system](system-breakdown.md)**.
+Want the real numbers, not marketing copy? **[Tested & verified](tested-and-verified.md)**.
 Want to know why any of this exists? **[Take back your compute](take-back-your-compute.md)**.

@@ -62,11 +62,15 @@ most members do both.
 3. **Tell someone.** A network like this only gets stronger with more
    independent contributors — not more centralization, more *independence*.
    Every person who joins with their own hardware or their own key is
-   capacity nobody can take back.
+   capacity nobody can take back. Referring someone who becomes a real
+   active member gets **you both $5** — see
+   [pricing & credits](pricing-and-credits.md#referrals-5-for-you-5-for-them).
 
 Read the **[full system breakdown](system-breakdown.md)** if you want to
-understand exactly how the pieces fit together before you commit — that's
-the point of documenting all of it in the open.
+understand exactly how the pieces fit together before you commit, or
+**[Tested & verified](tested-and-verified.md)** if you'd rather see the real
+measurements and real bugs-we-found-and-fixed than take any of this on
+faith — that's the point of documenting all of it in the open.
 
 ---
 

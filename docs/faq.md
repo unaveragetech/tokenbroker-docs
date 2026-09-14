@@ -22,9 +22,14 @@ Partly — and openly. The catalog mixes:
 
 1. Open-weights models running on the distributed compute network;
 2. Large models hosted on Ollama Cloud (free-tier friendly);
-3. Community personas published as cloud variants.
+3. Community personas published as cloud variants;
+4. Models served by contributed external-provider keys (Google AI Studio
+   today), where a worker calls that provider's own API directly.
 
-There is no hidden rebranding: each model's listing says where it runs.
+There is no hidden rebranding: each model's listing says where it runs, and
+[the full breakdown](system-breakdown.md#multiple-providers-on-purpose)
+explains why depending on more than one upstream is deliberate, not
+incidental.
 
 ### Is the service free?
 
@@ -159,9 +164,13 @@ way, the node never sees the requester's identity.
 
 ### How much can I earn?
 
-It depends on your hardware, uptime, and quality tier. Premium nodes that run
-reliably earn more valuable credits. Don't expect a salary — think of it as
-covering your own usage and supporting the network.
+It depends on your hardware, uptime, and quality tier. The base rate is 10
+credits per 1,000 real output tokens your node completes; what that's worth
+in redeemable value ranges from $0.05 (basic tier) to $0.20 (premium tier)
+per 1,000 tokens — see [pricing & credits](pricing-and-credits.md#credit-quality-tiers)
+for the full breakdown. Don't expect a salary — think of it as covering your
+own usage and supporting the network. There's also a daily cap per node
+(1,000 credits) so no single machine can dominate payouts.
 
 ### What is a "quality tier"?
 
@@ -192,6 +201,70 @@ The network only assigns jobs a node can actually serve. If no matching jobs
 are queued — or the node's cloud quota is exhausted — it waits. Idle nodes
 still show as online and are first in line when work appears.
 
+### Do I need a GPU to contribute anything at all?
+
+No. Two GPU-free ways to contribute real capacity: enable Ollama Cloud (your
+node relays to Ollama's own infrastructure, so your hardware doesn't run the
+model), or add a free-tier external provider key (Google AI Studio today) —
+your node calls that provider's API directly with your key. Either one turns
+a GPU-less laptop or a phone into real network capacity.
+
+### How is capacity from my hardware different from capacity from my API key?
+
+Hardware capacity is measured directly from real completed jobs. A
+provider-key's capacity is credited using a "known floor" the moment you add
+it — a conservative baseline so a brand-new contribution counts immediately
+instead of looking like zero. See [Tested & verified](tested-and-verified.md)
+for exactly how that floor was derived for each provider, and why they're
+labeled differently (one measured, one estimated).
+
+## Mobile workers (Android & iOS)
+
+### Can I really contribute compute from my phone?
+
+Yes. A companion mobile app runs the same relay loop as the desktop worker —
+heartbeat, claim a job, run it, report back — using a foreground service so
+it keeps working with the screen off and the app swiped away. It's a real,
+tested path: a live job was dispatched to and completed by a real phone
+during development, with the desktop worker paused, calling Google's API
+directly and returning a genuine response.
+
+### Why can't my phone run local models like a desktop can?
+
+Phones don't have the VRAM or the sustained thermal headroom for it, so
+mobile workers only ever serve cloud-hosted and external-provider work
+(Ollama Cloud, or a provider key you've added) — never a locally pulled
+model. This is a deliberate scope limit, not a missing feature.
+
+### How do I connect my phone?
+
+Generate a one-time pairing code from your dashboard's Compute page, and
+enter it in the app. The code carries your account's Ollama key (if you have
+one) along automatically, so a phone setup never has to ask you to type an
+API key on a phone keyboard.
+
+### Can I run both a desktop and a phone worker on one account?
+
+Yes — one of each. Two desktops or two phones on the same account is not
+allowed (the one-worker-per-platform-per-account rule), but one of each kind
+is exactly the setup the account-wide key system was built for.
+
+## Referrals
+
+### How do referrals work?
+
+Every account has a personal referral code, visible on your dashboard. When
+someone signs up with it and becomes a real active user — registers a worker
+node, or completes a real payment, whichever happens first — **you both get
+$5.00** credited automatically. See [pricing &
+credits](pricing-and-credits.md#referrals-5-for-you-5-for-them) for the full
+mechanics.
+
+### Is there a limit to how many people I can refer?
+
+No cap. Every genuinely new, independent member strengthens the network for
+everyone already using it, not just for whoever referred them.
+
 ## Models
 
 ### Why are some models marked "cloud"?
@@ -216,14 +289,43 @@ character, different engine — different price and quality.
 Yes — embedding models like `all-minilm` and `nomic-embed-text` are available
 through the embeddings endpoint.
 
+### Does TokenBroker support structured outputs / JSON mode?
+
+Not on every backend. Ollama Cloud specifically does not support
+structured/JSON-schema-constrained outputs as of this writing — confirmed
+directly against Ollama's own documentation, not assumed. If your workflow
+needs guaranteed JSON, prompt for the exact shape explicitly and validate the
+response yourself rather than relying on a `response_format` parameter
+against a cloud model. See [Tested & verified](tested-and-verified.md).
+
+### What's the biggest prompt I can send?
+
+Requests are capped at 100,000 characters of raw request JSON, and
+compute-network jobs cap output at 4,096 tokens per request. These aren't
+arbitrary — they came from deliberately testing oversized requests and bulk
+job submission to find real limits. Past either limit you get a clear, typed
+error rather than a silent failure or a hang.
+
+### Why did a model I used yesterday disappear or get renamed?
+
+Upstream providers retire and rename models with little warning — this has
+already happened at least twice with real models in this catalog. Rather
+than trust a static reference list, new provider models are verified live
+against the real API before being published. See [Tested &
+verified](tested-and-verified.md#what-we-found-doesnt-work-yet) for two real
+examples this caught.
+
 ## Infrastructure & uptime
 
 ### Is the service up 24/7?
 
 That's the goal and the design: supervisors keep services alive, a watchdog
 re-checks every few minutes, crashed processes restart automatically, and the
-gateway recycles daily. Real-world outages still happen — that's why a public
-status page is on the roadmap.
+gateway recycles daily. Real-world outages still happen. The live [network
+status page](https://tokenbroker.hopto.org/network) shows real-time capacity
+and activity to anyone, and [Tested & verified](tested-and-verified.md)
+documents real incidents and fixes rather than pretending they never
+happened.
 
 ### How is the site exposed without port forwarding?
 
@@ -255,5 +357,14 @@ privately rather than publicly.
 Linked from the website footer. The short version: your prompts aren't
 trained on, payments are real, abuse isn't tolerated, and the service is
 provided as-is with best-effort availability.
+
+## Didn't find your answer here?
+
+- [A full breakdown of the system](system-breakdown.md) — every component,
+  in depth, with diagrams.
+- [Tested & verified](tested-and-verified.md) — real measurements, real
+  limits, and honest caveats about what doesn't work yet.
+- [Take back your compute](take-back-your-compute.md) — the why behind all
+  of this.
 
 *More questions? Ask through the dashboard — the FAQ grows with the network.*

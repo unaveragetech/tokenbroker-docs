@@ -1,5 +1,11 @@
 # Frequently asked questions
 
+Answers organized by what you're actually trying to do — use the service,
+run a worker, or understand the economics behind either. If your question
+isn't here, the [full system breakdown](system-breakdown.md) goes deeper on
+mechanics, and [Tested & verified](tested-and-verified.md) covers what's
+been proven to actually work.
+
 ## Service basics
 
 ### What is TokenBroker?
@@ -107,6 +113,9 @@ from responses. See [security & privacy](security-and-privacy.md).
 
 ## Payments
 
+Money moves in one direction here — from your wallet to a request's exact
+cost, never more, never before it's actually run.
+
 ### How do I pay?
 
 Square-processed payments: credit/debit cards or Cash App. You can top up a
@@ -129,6 +138,9 @@ Ads (Google AdSense and similar) keep entry costs low. Ads never appear in
 API responses.
 
 ## The compute network
+
+The questions people actually ask before they trust a stranger's software
+enough to install it on their own machine.
 
 ### What is a compute node?
 
@@ -169,8 +181,8 @@ credits per 1,000 real output tokens your node completes; what that's worth
 in redeemable value ranges from $0.05 (basic tier) to $0.20 (premium tier)
 per 1,000 tokens — see [pricing & credits](pricing-and-credits.md#credit-quality-tiers)
 for the full breakdown. Don't expect a salary — think of it as covering your
-own usage and supporting the network. There's also a daily cap per node
-(1,000 credits) so no single machine can dominate payouts.
+own usage and supporting the network. There's also a daily earnings cap per
+node so no single machine can dominate payouts.
 
 ### What is a "quality tier"?
 
@@ -266,6 +278,9 @@ No cap. Every genuinely new, independent member strengthens the network for
 everyone already using it, not just for whoever referred them.
 
 ## Models
+
+The catalog spans four very different serving mechanisms behind one
+consistent naming scheme — here's how to read it.
 
 ### Why are some models marked "cloud"?
 

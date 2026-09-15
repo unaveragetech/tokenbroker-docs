@@ -1,7 +1,9 @@
 # Roadmap
 
-TokenBroker is a living service. Here's the direction of travel — in rough
-order of priority:
+TokenBroker is a living service, shaped as much by what testing reveals as
+by what was originally planned — see [Tested &
+verified](tested-and-verified.md) for examples of exactly that happening.
+Here's the direction of travel, in rough order of priority:
 
 ## Just shipped
 

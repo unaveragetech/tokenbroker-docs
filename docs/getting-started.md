@@ -1,6 +1,7 @@
 # Getting started
 
-From zero to your first AI response in about five minutes.
+From zero to your first AI response in about five minutes — no waitlist, no
+sales call, no separate account for every model you want to try.
 
 ## 1. Create an account
 

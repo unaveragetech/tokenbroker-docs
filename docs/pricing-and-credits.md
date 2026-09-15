@@ -1,5 +1,12 @@
 # Pricing & credits
 
+TokenBroker runs on two currencies moving in opposite directions: real money
+flowing in from people who spend, and credits flowing out to people who
+contribute. Both are designed to be predictable and boring in the best
+sense — no surprise line items, no mystery about what a credit is worth, no
+fine print about how a redemption actually settles. This page is the exact
+mechanics of both.
+
 ## How you pay
 
 TokenBroker charges **per token**, with per-model input and output prices.

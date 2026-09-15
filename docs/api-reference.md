@@ -1,7 +1,10 @@
 # API reference
 
-The API is OpenAI-compatible. If you've used OpenAI's API, you already know
-how to use TokenBroker.
+The API is OpenAI-compatible on purpose: if you've used OpenAI's API, or any
+of the dozen tools built to speak its dialect, you already know how to use
+TokenBroker. Point the base URL here, use your TokenBroker key, and
+everything else — SDKs, streaming, error shapes — behaves the way you
+already expect.
 
 ## Base URL
 
@@ -117,13 +120,14 @@ than being guessed at:
 | --- | --- |
 | Request payload size | 100,000 characters of raw JSON |
 | Output tokens per compute-network job | 4,096 max |
-| Compute jobs queued per user at once | 20 |
-| Compute jobs queued network-wide at once | 200 |
 
-A request past these limits gets a clear, typed error (`payload_too_large`,
-`compute_queue_full`, etc.) rather than an ambiguous failure. See [Tested &
-verified](tested-and-verified.md) for the story behind these numbers,
-including a real quality-gate rejection captured during testing.
+A request past either limit gets a clear, typed error (`payload_too_large`)
+rather than an ambiguous failure. There's also a queue-depth safeguard that
+returns a fast `503 compute_queue_full` during an unexpected spike rather
+than letting the queue grow without bound — deliberately not detailed
+further here. See [Tested & verified](tested-and-verified.md) for the story
+behind these limits, including a real quality-gate rejection captured
+during testing.
 
 ## Compute jobs via the API
 

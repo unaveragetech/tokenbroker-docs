@@ -1,20 +1,28 @@
 # The compute network
 
 TokenBroker doesn't rely on a single data center. It routes work to a network
-of **compute nodes** — desktop PCs contributed by members like you — plus
-cloud-hosted models. This section explains how the network works, how to join
-it, and how you get paid for participating.
+of **compute nodes** — desktops, phones, and personal API keys contributed
+by members like you — plus cloud-hosted models. This page explains how the
+network actually works, how to join it in whatever way fits your hardware,
+and exactly how you get paid for participating. If you want the case for
+*why* this exists at all, that's [Take back your
+compute](take-back-your-compute.md); this page is the how.
 
 ## Why a network?
 
-Some models are small enough to run on a laptop. Others need serious GPUs. A
-network lets the service offer both: a node with an RTX-class GPU can serve
-bigger local models, a modest node can serve smaller ones, and everything can
-fall back to cloud models when no node is available.
+Some models are small enough to run on a laptop. Others need serious GPUs.
+Some contributors have neither, but do have a spare phone or a free-tier API
+key sitting unused. A network lets the service take all of it: a node with
+an RTX-class GPU serves bigger local models, a modest node serves smaller
+ones, a phone or a GPU-less laptop relays cloud and external-provider work,
+and everything can fall back to a hosted cloud model when no node fits.
 
-The more nodes join, the more capacity the network has — which keeps the
-service available around the clock and reduces reliance on any single piece
-of hardware.
+The more nodes join — in whatever form — the more capacity the network has,
+which keeps the service available around the clock and reduces reliance on
+any single piece of hardware, any single provider, or any single person's
+uptime. That redundancy is the entire point, not an incidental benefit; see
+[the full breakdown](system-breakdown.md#multiple-providers-on-purpose) for
+why depending on more than one upstream is a deliberate design choice.
 
 ## How nodes are chosen
 
@@ -172,20 +180,29 @@ your account keeps whatever credits you've earned.
 
 ## Pay-gated (subscription) models
 
-Some Ollama cloud models require a paid ollama.com account (Pro/Max) or
-purchased "extra usage" - a free account gets `402 Payment Required` when it
-tries to run them. The network handles this in three layers:
+Some Ollama cloud models require a paid ollama.com account (Pro/Max) rather
+than the free tier — a node without that subscription simply can't run them.
+The network handles this automatically and transparently:
 
-1. **Is the worker paying?** Each worker probes a known pay-gated model
-   (`cloud_probe_model`, default `deepseek-v4-flash:0731`) at boot and reports
-   `free` / `paying` / `unknown` in its heartbeat (`cloud.subscription`), so
-   admins can see which nodes are paid.
-2. **Does a model need a paying worker?** The hub records every 402 as a
-   per-node `paywalled` marker (`compute_model_access`). A node that hit 402 on
-   a model stops advertising and claiming it.
-3. **Can any worker serve it right now?** Before a user or gateway-fallback
-   job is queued, the hub checks `canAnyNodeServe()`: some online node must
-   have the model, be cloud-capable and not paywalled for it, or be able to
-   pull it. If none can, the request fails fast with
-   `503 compute_unavailable` ("may require an Ollama subscription worker")
-   instead of queuing a job that will burn the fallback timeout and fail.
+1. Each worker figures out on its own whether its Ollama account can access
+   paid-tier models, and reports that status honestly.
+2. A model that turns out to need a paying account gets remembered per node
+   — a free-tier node stops being offered (and stops advertising) work it
+   already proved it can't do, instead of failing the same way repeatedly.
+3. Before a job is queued at all, the network checks whether *any* currently
+   online worker can actually serve that model right now. If none can, you
+   get an immediate, clear error explaining the model may need a paid-tier
+   worker — instead of a job that sits in the queue until a timeout expires
+   and fails anyway.
+
+## Related reading
+
+- [Tested & verified](tested-and-verified.md) — the real one-hour throughput
+  probe behind the Ollama Cloud numbers on this page, and a real networking
+  bug found and fixed on the mobile client.
+- [Pricing & credits](pricing-and-credits.md) — the exact $ value of a
+  credit by tier, and the referral program.
+- [FAQ](faq.md#the-compute-network) — quick answers about worker safety,
+  earnings, and mobile setup.
+- [Take back your compute](take-back-your-compute.md) — why joining matters
+  beyond your own account.

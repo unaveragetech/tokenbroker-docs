@@ -1,9 +1,18 @@
 # Security & privacy
 
-TokenBroker is built with a security-first posture. This page describes the
-controls in plain language. The implementation itself is intentionally kept
-private — obscurity is not security, but exposing attack surface details to
-the public helps nobody.
+A network where strangers' hardware fulfills your requests, and your
+hardware might fulfill a stranger's, only works if both directions are
+protected — a requester needs their prompt handled safely, and a contributor
+needs assurance that running this on their own machine won't expose them to
+abuse or risk. Neither side gets asked to just trust the other blindly; the
+system is built so each side's safety doesn't depend on the other's honesty.
+
+This page describes those controls in plain language. The implementation
+itself, and some specific thresholds (exactly how a fabricated response gets
+detected, for instance), are intentionally kept private: obscurity alone
+isn't security, but publishing the exact detection logic for the system's
+own anti-abuse checks would just be handing out a blueprint for evading
+them, for no benefit to anyone using the service honestly.
 
 ## What we protect
 

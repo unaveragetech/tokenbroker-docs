@@ -30,37 +30,33 @@ equally authoritative.
 The network's anti-farming quality gate isn't theoretical — here's a real
 example from testing the Google AI Studio integration:
 
-> A test job asked a worker to "say X and nothing else," on purpose, to
-> verify the whole path worked end to end. The worker claimed it, called
-> Google's real API, and got back exactly the requested four-token answer.
-> The job was still marked **failed** — because four tokens is below the
-> network's 24-token minimum, the same gate every job goes through.
+> A test job deliberately asked a worker for the shortest possible answer,
+> on purpose, just to verify the whole path worked end to end. The worker
+> claimed it, called Google's real API, and got back exactly the trivial
+> answer it asked for. The job was still marked **failed** — the response
+> was real, but too short to count as genuine work.
 
 That's not a bug report — it's the gate working exactly as designed. A
-follow-up job with a normal, realistic prompt (237 real output tokens) went
-through cleanly in about 9.5 seconds on the same worker. The numbers behind
-that gate, and the others that protect the credit system, are public:
+follow-up job with a normal, realistic prompt went through cleanly in a few
+seconds on the same worker. We don't publish the exact thresholds those
+gates check (length, timing, throughput, and response diversity, among
+others) — the same reason a bank doesn't publish its exact fraud-detection
+rules. What we can tell you honestly: they're tuned against real completions
+from real hardware, not guessed at, and they're revisited whenever testing
+turns up a gap.
 
-| Gate | Threshold | Stops |
-| --- | --- | --- |
-| Minimum output | 24 tokens | Trivial jobs farming the payout minimum |
-| Maximum output | 4,096 tokens | Runaway single-job token claims |
-| Minimum duration | 500 ms | Instant, fabricated completions |
-| Maximum speed | 1,500 tokens/sec | Impossible/fabricated throughput claims |
-| Minimum diversity | 0.15 | "1 2 3 4..." or copy-pasted repetition loops |
-| Daily cap | 1,000 credits/node | Runaway single-node daily earnings |
-
-## Known, tested limits (so you don't have to guess)
+## Known, tested request limits (so you don't have to guess)
 
 We deliberately pushed on the edges of the system — large prompts, batches of
-large jobs, oversized payloads — to find real limits rather than assume ones:
+large jobs, oversized payloads — to find real limits rather than assume
+ones. These are consumer-facing request limits (the kind any API documents
+so you can build reliably against it), not the anti-abuse detection logic
+above:
 
 | Limit | Value | What happens past it |
 | --- | --- | --- |
 | Job payload size | 100,000 characters (raw request JSON) | `400 payload_too_large` |
 | Output tokens per job | 4,096 | Requests get capped, not rejected |
-| Queued jobs per user | 20 at a time | New jobs wait for room |
-| Queued jobs, network-wide | 200 at a time | `503 compute_queue_full` — a deliberate backpressure valve so the queue can't grow unbounded during a spike |
 
 These aren't arbitrary — they came out of intentionally sending oversized
 and bulk requests during development and watching what needed a real limit

@@ -1,8 +1,12 @@
 # Models catalog
 
-TokenBroker's catalog is intentionally broad. Every model has a description,
-its own pricing, and (for local models) its hardware requirements, so you can
-pick the right tool for the job.
+Most AI products give you one model, maybe two, and call it a feature.
+TokenBroker's catalog is intentionally broad instead — hundreds of models
+spanning tiny laptop-friendly checkpoints to 600B-class reasoning models,
+because "the right model for this task" is a different answer for a chatbot
+than for a coding assistant than for a creative-writing tool. Every model
+has a description, its own pricing, and (for local models) its hardware
+requirements, so choosing isn't guesswork.
 
 The catalog isn't fixed — it grows as the network grows. Every new provider
 integration, every self-hosted model a contributor's node can run, and every

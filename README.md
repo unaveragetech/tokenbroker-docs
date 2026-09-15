@@ -35,7 +35,7 @@ The result:
 | Topic | Answer |
 | --- | --- |
 | Service | OpenAI-compatible model API + dashboard |
-| URL | [https://tokenbroker.hopto.org](https://tokenbroker.hopto.org) |
+| URL | [https://tokenbroker.hopto.org](tokenbroker.hopto.org) |
 | Sign up | Email & password, or Google |
 | Models | Hundreds (open-weights + cloud-hosted, incl. uncensored) |
 | Compute | Distributed worker network + Ollama Cloud |

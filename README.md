@@ -7,7 +7,7 @@ query it over a standard, OpenAI-compatible API from anywhere in the world.
 No GPU required. No port forwarding. No accounts on five different AI
 platforms.
 
-> **[→ Open the live service: https://tokenbroker.hopto.org](https://tokenbroker.hopto.org)**
+> **[→ Open the live service: https://tokenbroker.hopto.org](http://tokenbroker.hopto.org)**
 
 ---
 
@@ -35,7 +35,7 @@ The result:
 | Topic | Answer |
 | --- | --- |
 | Service | OpenAI-compatible model API + dashboard |
-| URL | [https://tokenbroker.hopto.org](tokenbroker.hopto.org) |
+| URL | [https://tokenbroker.hopto.org](HTTP://tokenbroker.hopto.org) |
 | Sign up | Email & password, or Google |
 | Models | Hundreds (open-weights + cloud-hosted, incl. uncensored) |
 | Compute | Distributed worker network + Ollama Cloud |

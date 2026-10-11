@@ -92,9 +92,9 @@ What that turned up, in plain terms:
   retired upstream or never existed under the listed name, and several more
   sat behind paid plans our free-tier routes don't cover. Those were removed
   rather than left to fail for real users.
-- **Edge-GPU routes mostly held up.** 22 of the 26 models on that route
-  answered. The rest need a paid upstream plan or a one-time license
-  acceptance, so they aren't advertised.
+- **Edge-GPU routes mostly held up.** 23 of the 26 models on that route
+  answered once a one-time vendor license was accepted for one of them. The
+  other three need a paid upstream plan, so they aren't advertised.
 - **Names can mislead.** Searching the catalog by name made some model
   families look absent when they were actually served under a different
   prefix, which is why we check by actually calling models rather than

@@ -25,8 +25,9 @@ Always-on models that don't depend on any contributor being online:
   (Nano, Super, Ultra).
 - **Edge GPU cloud (the `cf-` prefix)** — models served on Cloudflare's edge
   GPU network, including GPT-OSS 20B/120B, Gemma 4 26B, Nemotron 3 120B,
-  Llama 3.1/3.2/3.3 and Llama 4 Scout 17B, Qwen3 30B, QwQ 32B, Qwen2.5-Coder
-  32B, a DeepSeek-R1 32B distill, Mistral Small 3.1 24B, and GLM-4.7 Flash.
+  Llama 3.1/3.2/3.3 (including a 3.2 11B vision model) and Llama 4 Scout
+  17B, Qwen3 30B, QwQ 32B, Qwen2.5-Coder 32B, a DeepSeek-R1 32B distill,
+  Mistral Small 3.1 24B, and GLM-4.7 Flash.
 
 Each model's listing says where it runs. Because these routes sit on
 provider free tiers, they have daily limits — that's part of why the network

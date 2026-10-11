@@ -29,7 +29,7 @@ answered your request; the service masks who fulfilled it.
 
 - **One key, one endpoint** for chat, completions, embeddings, and more.
 - **Hundreds of models** — small and large, general-purpose and specialized,
-  including uncensored/abliterated variants.
+  verified end to end, with the goal of supporting nearly every open model.
 - **Real privacy** — your data is not used for training, and providers are
   masked.
 - **A community-powered network** — people contribute compute and earn
@@ -60,7 +60,7 @@ answered your request; the service masks who fulfilled it.
 | Service | OpenAI-compatible model API + dashboard |
 | URL | [https://tokenbroker.hopto.org](https://tokenbroker.hopto.org) |
 | Sign up | Email & password, or Google |
-| Models | Hundreds (open-weights + cloud-hosted, incl. uncensored) |
+| Models | Hundreds (hosted + community-served), growing toward nearly every open model |
 | Compute | Distributed worker network (desktop, Android, iOS) + Ollama Cloud + external providers |
 | Live status | Public, real-time at [/network](https://tokenbroker.hopto.org/network) |
 | Payments | Cards & Cash App via Square, wallet + plans |

@@ -17,9 +17,11 @@ Here's the direction of travel, in rough order of priority:
 
 ## Now
 
-- Expanding the models catalog from Hugging Face (distills, uncensored
-  variants, specialized models).
-- Growing the cloud model family coverage for custom personas.
+- Expanding the models catalog toward nearly every open model — more
+  Hugging Face imports (distills, specialists, select uncensored variants) and
+  more community-served capacity.
+- Re-adding very large models (certain GLM, Kimi, MiniMax and Mistral Large
+  releases) as sustainable access becomes available.
 - Improving worker onboarding and earnings transparency.
 - More external cloud providers as verified free-tier keys become available.
 - A real measured probe for Google AI Studio's throughput, the same

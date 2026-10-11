@@ -2,62 +2,73 @@
 
 Most AI products give you one model, maybe two, and call it a feature.
 TokenBroker's catalog is intentionally broad instead — hundreds of models
-spanning tiny laptop-friendly checkpoints to 600B-class reasoning models,
+spanning tiny laptop-friendly checkpoints up to 120B-class hosted models,
 because "the right model for this task" is a different answer for a chatbot
-than for a coding assistant than for a creative-writing tool. Every model
-has a description, its own pricing, and (for local models) its hardware
+than for a coding assistant than for a document pipeline. Every model has a
+description, its own pricing, and (for community-served models) its hardware
 requirements, so choosing isn't guesswork.
 
-The catalog isn't fixed — it grows as the network grows. Every new provider
-integration, every self-hosted model a contributor's node can run, and every
-community-imported model adds to the same list, kept live and up to date on
-the dashboard's Models page.
+**Where we're headed:** our goal is to support nearly every open model. The
+catalog you see today is smaller than that goal on purpose — we re-evaluated
+the list and only advertise what we've verified end to end — and it grows as
+the network grows (more contributors, more contributed provider keys, more
+sustainable access to large models). The live list is always on the
+dashboard's Models page and in `GET /v1/models`.
 
 ## Where models come from
 
-### 1. Local open-weights models
+### 1. Hosted cloud models
 
-Classic, proven open models (Llama, Qwen, Gemma, DeepSeek, Mistral, and more)
-run on compute nodes that have the right hardware. These are the workhorses of
-the network — cheap, fast, and always available when a capable node is
-online.
+Always-on models that don't depend on any contributor being online:
 
-### 2. Distilled and compact variants
+- **Ollama Cloud** — GPT-OSS 20B and 120B, Gemma 4 31B, and NVIDIA Nemotron 3
+  (Nano, Super, Ultra).
+- **Edge GPU cloud (the `cf-` prefix)** — models served on Cloudflare's edge
+  GPU network, including GPT-OSS 20B/120B, Gemma 4 26B, Nemotron 3 120B,
+  Llama 3.1/3.2/3.3 and Llama 4 Scout 17B, Qwen3 30B, QwQ 32B, Qwen2.5-Coder
+  32B, a DeepSeek-R1 32B distill, Mistral Small 3.1 24B, and GLM-4.7 Flash.
 
-Distilled versions of big models (for example, DeepSeek-R1 at 1.5B/7B/8B,
-Llama 3.2 at 1B/3B, Qwen2.5-Coder at 1.5B/7B, Gemma 3 at 1B/4B) bring
-surprising capability to hardware with only 8 GB of VRAM or less. The catalog
-is continuously expanded with these proven variants.
+Each model's listing says where it runs. Because these routes sit on
+provider free tiers, they have daily limits — that's part of why the network
+of contributed capacity exists (see [Capacity & the network](compute-network.md)).
 
-### 3. Uncensored / abliterated variants
+### 2. The community compute network
 
-Some users want models without refusals. The catalog includes **abliterated,
-uncensored, and "heretic" variants** (Qwen, Gemma, Llama, Mythos, and more),
-clearly labeled so you know exactly what you're choosing. Same tooling, same
-API — different behavior.
+Contributors' desktops (and, for cloud-relay work, phones) serve a library of
+roughly 250 open-weights models — Llama, Qwen, Gemma, DeepSeek-R1 distills,
+Mistral, specialist coders, OCR and SQL models, and more. A node pulls what it
+has room for, runs the job, and releases the disk afterward. These models are
+available **whenever a capable worker is online**; they're the long tail that
+grows with the network, and the main way the catalog widens toward "nearly
+every open model."
 
-### 4. Native cloud models
+### 3. Contributed provider keys
 
-Large models hosted on Ollama Cloud — GPT-OSS 20B/120B, Gemma 4 31B, GLM 5.x,
-DeepSeek V4 Flash, Kimi K2.6/K2.7 Code, MiniMax M2.7/M3, Mistral Large 3 675B,
-Nemotron 3 (Nano/Super/Ultra), Qwen3.5 397B, and more. These run on
-Ollama's infrastructure and are served through the network, so even a laptop
-can request a 600B-class model.
+Some models aren't hosted by us or run on any machine we know about — a
+contributor's worker calls an external provider's API directly with their own
+free-tier key. Google's fast Gemini model (`gemini-3.6-flash`) is the first of
+these. Like the community library, it's available whenever a contributor who
+holds that key has a worker online.
 
-### 5. Custom model cloud variants
+### 4. Specialists and select variants
 
-Community-built personas (simulation companions, creative writers, coding
-specialists, business tools) are published as **cloud variants on multiple
-bases** — so the same personality is available on light, medium, and heavy
-cloud models depending on your quality/cost preference.
+Coding, OCR and SQL specialists, embedding models (`nomic-embed-text` is
+served directly), and a small set of **uncensored** variants. "Uncensored"
+means refusal training was removed; these models are still subject to the
+terms of service and the law. The selection is deliberately small today and
+labeled clearly.
 
-### 6. External provider models
+## What's not here (yet)
 
-Some catalog models aren't hosted on Ollama's infrastructure at all — they're
-served by a compute-network worker calling an external provider's own API
-directly with a contributor's personal free-tier key. Google's fast Gemini
-model (`gemini-3.6-flash`) is the first of these, contributed this way rather
-than run on any single machine.
+We previously listed a handful of very large models — certain GLM, Kimi,
+MiniMax, Mistral Large and 600B-class releases. After re-testing every route
+we no longer advertise them: their upstream providers either retired them or
+gate them behind paid plans our free-tier routes don't cover. We'd rather
+show a shorter list that works than a longer one that doesn't. As access
+becomes sustainable — through paid upstream plans, contributed capacity, or
+open weights the network can serve itself — they're exactly the kind of model
+we want to add back. See [Tested & verified](tested-and-verified.md) for how
+we check.
 
 ## How much hardware a model actually needs
 
@@ -66,36 +77,36 @@ until you run out of VRAM entirely and fall back to CPU:
 
 ![What your hardware is actually worth](../assets/charts/hardware-throughput.svg)
 
-This is also why native cloud models exist: a model like a 120B-parameter
-GPT-OSS variant would need dozens of gigabytes of VRAM no consumer card has —
-running it on Ollama's infrastructure instead means a laptop with no GPU at
-all can still request it and get a real answer.
+This is also why hosted models exist: a 120B-parameter model would need
+dozens of gigabytes of VRAM no consumer card has — running it on a hosted
+route instead means a laptop with no GPU at all can still request it and get a
+real answer.
 
 ## Model naming
 
 Model names look like:
 
-- `gpt-oss:20b-cloud` — native cloud model.
-- `deepseek-r1:1.5b` — local open-weights model.
-- `qwen2.5-7b-abliterated` — uncensored variant.
-- `nova-sim-gemma4-cloud` — a custom persona variant running on the Gemma 4
-  cloud base.
+- `gpt-oss:20b-cloud` — hosted on Ollama Cloud.
+- `cf-llama-3.3-70b` — hosted on the edge GPU cloud (`cf-` prefix).
+- `deepseek-r1:7b` — community library; served by a capable worker.
+- `gemini-3.6-flash` — served with a contributed provider key.
 
-`-cloud` / `:cloud` names are cloud-hosted; everything else runs on the
-compute network.
+`-cloud` / `:cloud` and `cf-` names are hosted; other names run on the
+community compute network.
 
 ## How to choose
 
-| You want... | Pick... |
+| You want... | Try... |
 | --- | --- |
-| Cheap, fast, reliable chat | A small local model (1B–4B) |
-| Strong reasoning on modest GPU | DeepSeek-R1 distill (1.5B/7B/8B) |
-| Coding help | Qwen2.5-Coder, Shirdel Coder, Kimi K2.7 Code |
-| Creative writing / roleplay | Parable, FableForge, Mythos, Nova personas |
-| No refusals | Any model labeled uncensored/abliterated |
-| Maximum quality, any hardware | A native cloud model (Gemma 4, GPT-OSS 120B, GLM 5.2...) |
-| OCR / document extraction | olmOCR 7B |
-| Natural language → SQL | Qwen3 4B text2SQL |
+| Cheap, fast chat | `cf-llama-3.2-3b`, `cf-gemma-2b` |
+| Strong reasoning | `cf-qwq-32b`, `cf-deepseek-r1-32b`, `gpt-oss:120b-cloud` |
+| Coding help | `cf-qwen2.5-coder-32b` |
+| Maximum quality | `gpt-oss:120b-cloud`, `cf-nemotron-3-120b`, `cf-llama-3.3-70b` |
+| Long context, fast | `gemini-3.6-flash` (community-served) |
+| Embeddings | `nomic-embed-text` |
+| OCR / document extraction | `deepseek-ocr`, `glm-ocr` (community library) |
+| Natural language → SQL | `sqlcoder`, `duckdb-nsql` (community library) |
+| Fewer refusals | A select uncensored variant, e.g. `wizardlm-uncensored` (community library) |
 
 ## Requesting new models
 
@@ -105,9 +116,9 @@ native Ollama models, and publishes them so any node can serve them.
 
 ## Related reading
 
-- [Tested & verified](tested-and-verified.md) — real model-name retirements
-  we caught by testing live instead of trusting a reference list, and what
-  structured-output support actually looks like today.
+- [Tested & verified](tested-and-verified.md) — how we check that a listed
+  model really answers, and real model-name retirements we caught by testing
+  live instead of trusting a reference list.
 - [API reference](api-reference.md) — how to list and call models
   programmatically.
 - [Compute network](compute-network.md) — how a model actually gets served.

@@ -73,7 +73,7 @@ Legacy text completions.
 
 ### `POST /v1/embeddings`
 
-Embedding models (e.g. `all-minilm`, `nomic-embed-text`).
+Embedding models (e.g. `nomic-embed-text`).
 
 ### `GET /v1/models`
 

@@ -14,8 +14,9 @@ TokenBroker collapses all of that into one account, funded by a different
 kind of infrastructure than the usual answer (a bigger data center):
 
 1. **A catalog** of hundreds of models, from lightweight 0.5B models that run
-   on a laptop to 600B+ reasoning models that only exist in the cloud —
-   curated and priced, not a raw dump of everything that exists.
+   on a laptop to 120B-class hosted models — curated, verified and priced,
+   not a raw dump of everything that exists, and growing toward nearly every
+   open model.
 2. **A single API** — OpenAI-compatible, so it works with the tools you
    already use (LangChain, Open WebUI, custom code, scripts) with a one-line
    change: point the base URL here instead.

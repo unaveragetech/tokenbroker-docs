@@ -24,7 +24,7 @@ The result:
 
 - **One key, one endpoint** for chat, completions, embeddings, and more.
 - **Hundreds of models** — small and large, general-purpose and specialized,
-  including uncensored/abliterated variants.
+  verified end to end, with the goal of supporting nearly every open model.
 - **Real privacy** — your request is answered and your data is not used for
   training.
 - **A community-powered network** — people contribute compute and earn
@@ -37,7 +37,7 @@ The result:
 | Service | OpenAI-compatible model API + dashboard |
 | URL | [https://tokenbroker.hopto.org](HTTP://tokenbroker.hopto.org) |
 | Sign up | Email & password, or Google |
-| Models | Hundreds (open-weights + cloud-hosted, incl. uncensored) |
+| Models | Hundreds (hosted + community-served), growing toward nearly every open model |
 | Compute | Distributed worker network + Ollama Cloud |
 | Payments | Cards & Cash App via Square, wallet + plans |
 | Docs | Start with [Overview](docs/overview.md) |
@@ -59,8 +59,9 @@ The result:
 ## The short pitch
 
 **For users:** stop juggling API keys. TokenBroker gives you one account, one
-key, one bill — and access to models from DeepSeek, Qwen, Gemma, GLM, Kimi,
-MiniMax, Nemotron, Mistral, GPT-OSS and more, with simple transparent pricing.
+key, one bill — and access to models from OpenAI's GPT-OSS, Gemma, Nemotron,
+Llama, Qwen, Mistral, DeepSeek-R1 and more, with simple transparent pricing —
+and a goal of supporting nearly every open model.
 
 **For contributors:** install the TokenBroker worker, let your GPU earn while
 you sleep, and turn idle hardware into credits you can spend on API usage.

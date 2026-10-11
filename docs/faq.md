@@ -12,7 +12,7 @@ been proven to actually work.
 
 TokenBroker is a public AI inference service. You get one account, one API
 key, and one bill, and you can query hundreds of models — from small local
-models to 600B+ cloud models — through a single OpenAI-compatible API at
+models up to 120B-class hosted models — through a single OpenAI-compatible API at
 [https://tokenbroker.hopto.org](https://tokenbroker.hopto.org).
 
 ### Do I need a GPU or a server?
@@ -27,9 +27,9 @@ GPU) becomes useful — see the compute network docs.
 Partly — and openly. The catalog mixes:
 
 1. Open-weights models running on the distributed compute network;
-2. Large models hosted on Ollama Cloud (free-tier friendly);
-3. Community personas published as cloud variants;
-4. Models served by contributed external-provider keys (Google AI Studio
+2. Large models hosted on Ollama Cloud and on an edge GPU cloud (the `cf-`
+   models), both on free-tier-friendly routes;
+3. Models served by contributed external-provider keys (Google AI Studio
    today), where a worker calls that provider's own API directly.
 
 There is no hidden rebranding: each model's listing says where it runs, and
@@ -46,11 +46,22 @@ worker, which makes access effectively free for contributors.
 
 ### What models are available?
 
-Hundreds, and the list grows weekly. Highlights include GPT-OSS 20B/120B,
-Gemma 4, GLM 5.x, DeepSeek (R1 distills and V4 Flash), Qwen (2.5, 3, 3.5),
-Kimi K2.6/K2.7 Code, MiniMax M2.7/M3, Mistral Large 3, Nemotron 3, Llama 3.x,
-specialized coding/OCR/SQL models, and uncensored/abliterated variants. See
-[models catalog](models-catalog.md).
+Hundreds, and the list grows as the network does. Hosted and always-on
+today: GPT-OSS 20B/120B, Gemma 4, Nemotron 3 (Nano, Super, Ultra, 120B),
+Llama 3.x and Llama 4 Scout, Qwen3 30B, QwQ 32B, Qwen2.5-Coder 32B, a
+DeepSeek-R1 32B distill, Mistral Small 3.1 24B, and GLM-4.7 Flash. Community-
+served whenever a capable worker is online: Gemini 3.6 Flash (via a
+contributed key) and a library of roughly 250 open-weights models, including
+specialist coding/OCR/SQL models and a few uncensored variants. Our goal is to
+support nearly every open model over time. See [models catalog](models-catalog.md).
+
+### Why isn't a big model I've heard of (GLM 5, Kimi, MiniMax, Mistral Large) listed?
+
+We re-evaluated the list and only advertise models we've verified end to end.
+Some very large models were retired by their upstream provider or sit behind
+paid plans our free-tier routes don't cover, so they're not offered right now.
+They're exactly the kind of model we want to add back as sustainable access
+becomes available — see the [models catalog](models-catalog.md#whats-not-here-yet).
 
 ### Does "uncensored" mean illegal content is allowed?
 
@@ -284,25 +295,20 @@ consistent naming scheme — here's how to read it.
 
 ### Why are some models marked "cloud"?
 
-`-cloud`/`:cloud` models run on Ollama's hosted infrastructure rather than
-the compute network. They're useful when no local node has the hardware for a
-large model, or when you want maximum quality on any device.
+`-cloud`/`:cloud` models run on Ollama's hosted infrastructure, and `cf-`
+models run on an edge GPU cloud — neither depends on a contributor being
+online. They're useful when no local node has the hardware for a large model,
+or when you want maximum quality on any device.
 
 ### Can I request a model that isn't in the catalog?
 
 Yes — requests are welcome. Popular Hugging Face models get imported, rebuilt
 as native Ollama models, and published so any node can serve them.
 
-### What's the difference between a model and its "cloud variant"?
-
-The variant keeps the same personality/prompt behavior but runs on a
-different base model (e.g. a creative persona on Gemma 4 vs. GLM 5). Same
-character, different engine — different price and quality.
-
 ### Are embeddings supported?
 
-Yes — embedding models like `all-minilm` and `nomic-embed-text` are available
-through the embeddings endpoint.
+Yes — `nomic-embed-text` is served directly through the embeddings endpoint,
+and more embedding models are in the community library.
 
 ### Does TokenBroker support structured outputs / JSON mode?
 

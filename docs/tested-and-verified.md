@@ -79,6 +79,36 @@ We're including this because it's a good example of the gap between "the
 code looks right" and "the code works against the real internet" — and why
 this page exists instead of just a features list.
 
+## Re-checking the whole catalog
+
+Catalogs rot quietly: a model can keep showing as "healthy" long after it
+stopped answering real requests, because a reachability ping isn't an
+inference call. So we re-tested every hosted route with a real, tiny request
+and rebuilt the advertised list from what actually answered.
+
+What that turned up, in plain terms:
+
+- **A large share of listed models didn't answer at all.** Many had been
+  retired upstream or never existed under the listed name, and several more
+  sat behind paid plans our free-tier routes don't cover. Those were removed
+  rather than left to fail for real users.
+- **Edge-GPU routes mostly held up.** 22 of the 26 models on that route
+  answered. The rest need a paid upstream plan or a one-time license
+  acceptance, so they aren't advertised.
+- **Names can mislead.** Searching the catalog by name made some model
+  families look absent when they were actually served under a different
+  prefix, which is why we check by actually calling models rather than
+  searching names.
+
+One lesson about the testing itself: our first pass probed many models at once
+against a shared proxy, and the burst produced *false* failures — at least one
+perfectly good model was flagged as missing. Re-running sequentially, with a
+retry before declaring a model gone, fixed it, and that's now how we test.
+
+The result is a shorter advertised list than before, on purpose. We'd rather
+promise less and have it work, then grow toward nearly every open model as
+access becomes sustainable.
+
 ## What we found *doesn't* work (yet)
 
 Not every integration attempt succeeds, and we'd rather say so than quietly

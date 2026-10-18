@@ -252,12 +252,20 @@ tested path: a live job was dispatched to and completed by a real phone
 during development, with the desktop worker paused, calling Google's API
 directly and returning a genuine response.
 
-### Why can't my phone run local models like a desktop can?
+### Can my phone run a real local model, not just cloud relay?
 
-Phones don't have the VRAM or the sustained thermal headroom for it, so
-mobile workers only ever serve cloud-hosted and external-provider work
-(Ollama Cloud, or a provider key you've added) — never a locally pulled
-model. This is a deliberate scope limit, not a missing feature.
+As of the Android app's BigMoe update: for one model, yes. A phone can't hold
+a large model fully in RAM the way a desktop GPU can, but it can *stream* one
+— [BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge) reads only the parts
+of a 30B-parameter model (`bmoe-qwen3-30b-a3b`) each word actually needs,
+straight from storage, instead of loading the whole thing. It's opt-in (off by
+default), needs a one-time ~14 GB download the app verifies before offering
+to serve jobs, only runs while the phone is charging, and is genuinely slow (a
+few tokens/second) — this is about correctness and real capacity on modest
+hardware, not speed. Everything else still works the normal way: a phone's
+*default* job is relaying cloud-hosted and external-provider work (Ollama
+Cloud, or a provider key you've added), with no download and no storage used.
+iOS has no equivalent — the streaming engine has no iOS build.
 
 ### How do I connect my phone?
 

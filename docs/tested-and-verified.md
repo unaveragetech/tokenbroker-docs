@@ -25,6 +25,29 @@ equally authoritative.
 
 ![What your hardware is actually worth](../assets/charts/hardware-throughput.svg)
 
+## BigMoe flash-streaming: measured, not estimated
+
+Before adding `bmoe-qwen3-30b-a3b` to the catalog, we ran it for real rather
+than taking the engine's own benchmarks on faith: a 14.1 GB Q3_K_M quantization
+of Qwen3-30B-A3B, loaded and run end to end through the actual compute-network
+job path (not a standalone script) on one Windows desktop (16 GB RAM, no
+GPU involved in the streaming path). Measured results: model load in
+3.6–3.9 seconds, decode at roughly 2.6–2.8 tokens/second, coherent and correct
+output on real prompts. That's the number we publish — not the engine's own
+best-case figures from different hardware.
+
+**What this does and doesn't prove.** It confirms the integration is real:
+the job dispatch, flash-streaming engine, and private-job encoding path all
+work together correctly on real hardware. It does *not* establish typical
+performance across the range of machines that will actually run this — one
+desktop is one data point. We also haven't yet benchmarked it on a real phone
+(the Android build was verified for correct download/install/engine-presence,
+not a completed on-device inference run) or on the GitHub Actions standing
+node, which has less RAM than the desktop it was first measured on. Expect
+the published speed to be revised as more real hardware reports in — in the
+same don't-round-up-for-the-headline direction as everything else on this
+page.
+
 ## What actually breaks a job, tested live
 
 The network's anti-farming quality gate isn't theoretical — here's a real

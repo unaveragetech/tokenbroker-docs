@@ -43,6 +43,15 @@ available **whenever a capable worker is online**; they're the long tail that
 grows with the network, and the main way the catalog widens toward "nearly
 every open model."
 
+One entry in this library works differently: `bmoe-qwen3-30b-a3b`, a
+30B-parameter model served by [BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge)
+streaming — a node doesn't pull the whole file into memory, it reads only the
+parts each word needs, live, off disk. That lets a CPU-only machine (desktop
+or, as of the Android app's BigMoe update, an opted-in phone) serve a model
+far bigger than its RAM, correctly, just slowly (roughly 1–3 tokens/second).
+See [Compute network](compute-network.md#large-models-without-a-gpu-flash-streamed-community-library)
+for the full explanation.
+
 ### 3. Contributed provider keys
 
 Some models aren't hosted by us or run on any machine we know about — a
@@ -90,6 +99,8 @@ Model names look like:
 - `gpt-oss:20b-cloud` — hosted on Ollama Cloud.
 - `cf-llama-3.3-70b` — hosted on the edge GPU cloud (`cf-` prefix).
 - `deepseek-r1:7b` — community library; served by a capable worker.
+- `bmoe-qwen3-30b-a3b` — community library, served by flash-streaming
+  (`bmoe-` prefix); slow but real, see above.
 - `gemini-3.6-flash` — served with a contributed provider key.
 
 `-cloud` / `:cloud` and `cf-` names are hosted; other names run on the
@@ -104,6 +115,7 @@ community compute network.
 | Coding help | `cf-qwen2.5-coder-32b` |
 | Maximum quality | `gpt-oss:120b-cloud`, `cf-nemotron-3-120b`, `cf-llama-3.3-70b` |
 | Long context, fast | `gemini-3.6-flash` (community-served) |
+| Large model, no GPU, speed doesn't matter | `bmoe-qwen3-30b-a3b` (community library, flash-streamed) |
 | Embeddings | `nomic-embed-text` |
 | OCR / document extraction | `deepseek-ocr`, `glm-ocr` (community library) |
 | Natural language → SQL | `sqlcoder`, `duckdb-nsql` (community library) |

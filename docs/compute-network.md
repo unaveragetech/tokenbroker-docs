@@ -63,7 +63,8 @@ The worker connects outbound only — **no ports are opened** on your router.
 - Windows 10/11, 64-bit.
 - Ollama installed (the worker uses it as the local inference engine).
 - A GPU is a big advantage (more model families, bigger jobs), but not
-  strictly required — smaller models run on CPU.
+  strictly required — smaller models run on CPU, and with BigMoeOnEdge
+  (optional, see below) even a 30B-class model can run CPU-only, just slowly.
 - Storage you're willing to contribute. Models the worker pulls for the
   network are evicted automatically after 2 hours idle, so storage stays
   available for your own use.
@@ -97,15 +98,69 @@ conservative estimate instead — the [live network status
 page](https://tokenbroker.hopto.org/network) always favors real measured
 throughput over either baseline once a worker has one.
 
+## Large models without a GPU (flash-streamed, community library)
+
+A CPU-only machine with enough RAM and disk can now serve a genuinely large
+model — `bmoe-qwen3-30b-a3b`, a 30B-parameter Qwen3 MoE model — using
+[BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge) (Apache-2.0, built on
+llama.cpp). Instead of loading the whole model into RAM, it keeps the small
+always-needed part resident and streams just the "experts" each word actually
+routes to, straight off disk, at the moment they're needed. The output is
+byte-identical to running the model fully resident — nothing is approximated.
+
+This is **not fast**: expect roughly 1–3 tokens/second on ordinary consumer
+hardware, well below a GPU-served model. It's offered as real, correct
+capacity for patient or background use (and as proof that modest hardware can
+usefully serve models far larger than its RAM), not as a replacement for the
+faster routes. A worker opts in explicitly:
+
+- **Desktop worker**: add a `bigmoe` block to `worker-config.json` pointing at
+  the engine and a downloaded model file. Needs roughly 10 GB free RAM and
+  25 GB free disk.
+- **Android app**: a "Run big models on this phone" card (native app only)
+  downloads and SHA-256-verifies the ~14 GB model over Wi-Fi, then an opt-in
+  toggle advertises it — only while the phone is charging and the download has
+  verified cleanly. See [Mobile workers](#mobile-workers-android--ios) below.
+- **Standing nodes**: the operator also runs a dedicated BigMoe node on free
+  CI infrastructure (see [below](#standing-infrastructure)), so this model is
+  usually servable even with zero community contributors currently running it.
+
 ## Mobile workers (Android & iOS)
 
 The network isn't limited to desktops. A companion mobile app runs the same
 relay loop in the background — heartbeat, claim a job, run it, report back —
-using a foreground service so it keeps working with the screen off. A phone
-can't run large local models, so it serves cloud-hosted and external-provider
-work (Ollama Cloud, or a provider key you've added to your account) rather
-than pulling models locally. Pairing a phone to your account takes a one-time
-code generated from the dashboard.
+using a foreground service so it keeps working with the screen off. Pairing a
+phone to your account takes a one-time code generated from the dashboard.
+
+A phone's normal job is cloud-hosted and external-provider work (Ollama
+Cloud, or a provider key you've added to your account) — no download, no
+storage used, works the moment you pair. As of the Android app's BigMoe
+update, a phone can **additionally** opt into serving one real local model
+(see above) by downloading it once; this is optional, off by default, and
+gated on the phone actually charging, so it never eats your mobile data or
+battery as a side effect of being paired. iOS has no equivalent today — the
+underlying engine has no iOS build, so iPhones/iPads stay cloud-relay only.
+
+The app shows exactly what it's doing: a live status card for the download
+(progress, verification), a toggle to turn big-model serving on or off, and
+separate Wi-Fi-only and charging-only switches so none of it is a surprise.
+
+## Standing infrastructure
+
+Community nodes come and go as people turn their devices on and off, so the
+operator also runs a small amount of **standing, operator-owned** compute on
+free hosted CI infrastructure, mainly so there's always some baseline capacity
+rather than the catalog depending entirely on who happens to be online. These
+nodes behave like any other worker from the gateway's point of view — same
+dispatch rules, same quality gates — they're just always-on and don't earn
+credits (an operator-run node can't pay itself). They never see or claim more
+than their fair share: they're dispatched exactly like community nodes,
+picked only when they're the best match for a job.
+
+This is deliberately modest and bounded by the hosting platform's own terms
+for free compute — it is not, and isn't trying to be, a substitute for real
+community participation. The network's actual capacity and resilience comes
+from people running the worker, not from this.
 
 ## How workers earn credits
 

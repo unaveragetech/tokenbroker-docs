@@ -7,6 +7,11 @@ Here's the direction of travel, in rough order of priority:
 
 ## Just shipped
 
+- Large models without a GPU — [BigMoeOnEdge](https://github.com/Helldez/BigMoeOnEdge)
+  flash-streaming lets a CPU-only desktop or (opted-in, charging, Android
+  only) phone serve a real 30B-parameter model by streaming it off disk. See
+  [Compute network](compute-network.md#large-models-without-a-gpu-flash-streamed-community-library)
+  and the measured numbers in [Tested & verified](tested-and-verified.md#bigmoe-flash-streaming-measured-not-estimated).
 - Mobile workers (Android & iOS) — contribute compute from a phone, not just
   a desktop.
 - External cloud provider support (Google AI Studio) — a worker can now
@@ -28,9 +33,12 @@ Here's the direction of travel, in rough order of priority:
   deliberately bounded method already used for Ollama Cloud — see [Tested &
   verified](tested-and-verified.md) for why the current figure is still
   labeled an estimate.
+- Real-device benchmarks for BigMoe (phone, and the lower-RAM standing node)
+  to replace the single-desktop measurement it launched with.
 
 ## Next
 
+- More models served via flash-streaming, beyond the one launched with.
 - Bigger-model splitting across multiple GPUs for large jobs.
 - More worker telemetry (uptime graphs, request-rate overlays, storage pool
   health).

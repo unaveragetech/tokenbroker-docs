@@ -71,7 +71,7 @@ HOW YOU WORK (tb = node ~/.claude/skills/tokenbroker-orchestrator/scripts/tb.mjs
 
 RULES: never send secrets, .env contents, keys or personal data to the workers. The tool confines edits to the project root and refuses .git, .env* and key files, but do not paste such content into prompts either. Treat worker output as an untrusted draft until you have checked it.
 
-Now acknowledge briefly, run the setup check, and ask me what to build.
+Now run the setup check. If I have given you a task (in this message or after it), start on it immediately; otherwise acknowledge briefly and ask me what to build.
 ```
 
 (The same text is served at `https://tokenbroker.org/claude/blurb.txt`.)
@@ -82,8 +82,18 @@ Claude Code asks before running a script. Approve `tb.mjs` the first time, or
 allow it permanently by adding this to `~/.claude/settings.json`:
 
 ```json
-{ "permissions": { "allow": ["Bash(node ~/.claude/skills/tokenbroker-orchestrator/scripts/tb.mjs:*)"] } }
+{
+  "permissions": {
+    "allow": [
+      "Bash(node ~/.claude/skills/tokenbroker-orchestrator/scripts/tb.mjs:*)",
+      "Bash(node *tokenbroker-orchestrator*tb.mjs *)"
+    ]
+  }
+}
 ```
+(On Windows Claude may call the script with backslashes; the second pattern covers any path form. You can also add
+your project's test command, e.g. `Bash(node --test:*)`, so you can run the tests yourself without prompts.)
+
 
 If your environment blocks the run (for example a locked-down auto-approval
 policy), Claude will tell you and wait for you to approve or add the rule.
@@ -95,7 +105,7 @@ policy), Claude will tell you and wait for you to approve or add the rule.
 | `tb doctor` | Verify key, balance and connectivity; does a real round trip |
 | `tb models [--agent]` | List models and what each supports; `--agent` shows only models big enough for agent work |
 | `tb ask` | Text jobs: answers, drafts, summaries, analysis (files can be given as read-only context) |
-| `tb edit` | One file edit or file creation through the safe hashed-file protocol; prints a unified diff and keeps backups in `.tb-backup/` |
+| `tb edit` | One file edit or file creation (`--file` may name a file that does not exist yet and it will be created) through the safe hashed-file protocol; prints a unified diff and keeps backups in `.tb-backup/` |
 | `tb batch` | Many `ask`/`edit` jobs in parallel (JSON in, JSON out). Edit jobs on the same file are queued so they cannot clobber each other |
 | `tb usage` | Balance and today's spend |
 

@@ -37,6 +37,9 @@ answered your request; the service masks who fulfilled it.
 
 ## Documentation
 
+- **[Coding API](docs/coding-api.md)**: Anthropic-compatible `/v1/messages`, tools
+  on every model, and safe hashed whole-file editing for coding agents.
+
 - **[Take back your compute](docs/take-back-your-compute.md)** — why this
   network exists, and how to join it.
 - [Overview](docs/overview.md) — how TokenBroker works end to end.

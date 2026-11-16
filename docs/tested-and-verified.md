@@ -159,3 +159,24 @@ instead of inventing a confident-sounding number.
 
 See the [full system breakdown](system-breakdown.md) for how these pieces
 fit together, or the [FAQ](faq.md) for quick answers.
+
+## Coding endpoint: file edits against real models
+
+The [Coding API](coding-api.md) was tested two ways.
+
+**Hermetic suite (`npm run test:coding`).** Path safety (about 45 hostile path
+shapes plus model-emitted traversal attempts), the edit engine, the tool
+protocol, error and leak edge cases (malformed bodies, oversized files, upstream
+garbage, unfunded and revoked keys, cross-tenant hash probing), and a full
+round trip through the compute network: the test decodes a private Hiro job the
+way a worker would, then encodes the reply the way a worker does, and checks the
+gateway returns a verified edit. Edge testing found and fixed two real bugs
+(non-object request bodies caused a 500, and a provider answering 200 with a
+non-JSON body was not failed over).
+
+**Live models.** Every chat model on Ollama Cloud (23 at the time of testing)
+was run through three real file-edit tasks with the full hashed-file loop. All
+69 task runs passed; two models needed one internal retry. That is a small
+sample (3 tasks per model, native tool mode), not a benchmark. The harness
+(`npm run eval:coding`) supports the full 10-task set and native-versus-emulated
+comparisons.

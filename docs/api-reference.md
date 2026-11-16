@@ -20,6 +20,9 @@ Send your API key as a Bearer token:
 Authorization: Bearer YOUR_API_KEY
 ```
 
+On `/v1/messages` you can also use Anthropic's header:
+`x-api-key: YOUR_API_KEY`.
+
 Create and manage keys from the dashboard. Keys are hashed at rest, can be
 revoked instantly, and can carry daily spend caps.
 
@@ -67,6 +70,27 @@ If you need guaranteed JSON, prompt for it explicitly (e.g. "respond with
 only a JSON object matching this shape: ...") and validate the response on
 your side. See [Tested & verified](tested-and-verified.md) for more of these.
 
+With `tools`, models that lack native tool calling are served through the
+gateway's emulated tool protocol and still return standard `tool_calls`.
+
+### `POST /v1/messages`
+
+Anthropic Messages API: text, `tool_use`/`tool_result`, `tools`, `stream`, plus
+the hashed `file` blocks and `read_file` / `edit_file` / `write_file` tools for
+safe whole-file editing. Authenticate with `x-api-key: tb_live_…` (or the Bearer
+header). Errors on this route use Anthropic's error shape. Full guide:
+**[Coding API](coding-api.md)**.
+
+### `POST /v1/messages/count_tokens`
+
+Estimated input tokens for a Messages request (including tool schemas and
+files). Not billed.
+
+### `GET /v1/file-tools`
+
+The `read_file`, `edit_file` and `write_file` tool definitions and a summary of
+the file-block protocol.
+
 ### `POST /v1/completions`
 
 Legacy text completions.
@@ -77,7 +101,29 @@ Embedding models (e.g. `nomic-embed-text`).
 
 ### `GET /v1/models`
 
-List available models.
+List available models. Each entry includes a `features` object so you can pick
+a model by capability:
+
+```json
+{
+  "id": "gpt-oss:120b-cloud",
+  "context_length": 131072,
+  "features": {
+    "text_chat": true,
+    "embeddings": false,
+    "tools": true,
+    "tool_mode": "native",
+    "file_edit": true,
+    "edit_format": "auto",
+    "vision": false,
+    "apis": ["chat.completions", "messages"]
+  }
+}
+```
+
+`tool_mode` is `native` (the provider supports tool calling) or `emulated`
+(the gateway provides it, so the model still works with agent clients).
+Embedding models report `embeddings: true` and no tools or file editing.
 
 ### `GET /v1/usage`
 
@@ -85,7 +131,8 @@ Your balance and today's usage.
 
 ## Errors
 
-Errors use OpenAI-style shapes:
+`/v1/messages*` returns Anthropic-style errors (see [Coding API](coding-api.md#errors)).
+All other routes use OpenAI-style shapes:
 
 ```json
 {

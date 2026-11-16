@@ -15,14 +15,34 @@ the network grows (more contributors, more contributed provider keys, more
 sustainable access to large models). The live list is always on the
 dashboard's Models page and in `GET /v1/models`.
 
+## What each model can do
+
+Every catalog entry (dashboard Models page and `GET /v1/models`) carries
+capability badges, and the Models page can filter by them:
+
+| Badge | Meaning |
+| --- | --- |
+| **Text chat** | Works on `/v1/chat/completions` and `/v1/messages` |
+| **Embeddings** | Embedding model (`/v1/embeddings`); not a chat model |
+| **Tools** | Tool/function calling. **Tools** = native; **Tools (emulated)** = provided by the gateway, so the model still works with agent clients |
+| **File edit** | Safe hashed whole-file editing via `/v1/messages` (see [Coding API](coding-api.md)) |
+| **Vision** | Accepts image input |
+
+All chat models support Tools and File edit by default; models whose provider
+reports native tool support use it directly. Native support and vision for
+Ollama Cloud models come straight from Ollama's own capability list, kept in
+sync with `npm run sync:ollama-cloud`.
+
 ## Where models come from
 
 ### 1. Hosted cloud models
 
 Always-on models that don't depend on any contributor being online:
 
-- **Ollama Cloud** — GPT-OSS 20B and 120B, Gemma 4 31B, and NVIDIA Nemotron 3
-  (Nano, Super, Ultra).
+- **Ollama Cloud** — the full Ollama Cloud catalog is wired in directly
+  (GPT-OSS 20B/120B, Gemma 4 31B, GLM 5.2/5.3, Kimi K2.6/K2.7 Code/K3,
+  DeepSeek V4, MiniMax M3, Mistral Large 4, NVIDIA Nemotron 3, and more),
+  with tool and vision support taken from Ollama's own capability flags.
 - **Edge GPU cloud (the `cf-` prefix)** — models served on Cloudflare's edge
   GPU network, including GPT-OSS 20B/120B, Gemma 4 26B, Nemotron 3 120B,
   Llama 3.1/3.2/3.3 (including a 3.2 11B vision model) and Llama 4 Scout

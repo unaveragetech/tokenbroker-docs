@@ -27,6 +27,7 @@ capability badges, and the Models page can filter by them:
 | **Tools** | Tool/function calling. **Tools** = native; **Tools (emulated)** = provided by the gateway, so the model still works with agent clients |
 | **File edit** | Safe hashed whole-file editing via `/v1/messages` (see [Coding API](coding-api.md)) |
 | **Vision** | Accepts image input |
+| **Agent-ready** | Tool support and a 64k+ context window: large enough for coding agents such as Claude Code (see [Coding API](coding-api.md#use-it-with-claude-code)) |
 
 All chat models support Tools and File edit by default; models whose provider
 reports native tool support use it directly. Native support and vision for

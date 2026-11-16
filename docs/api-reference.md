@@ -116,6 +116,7 @@ a model by capability:
     "file_edit": true,
     "edit_format": "auto",
     "vision": false,
+    "agent_ready": true,
     "apis": ["chat.completions", "messages"]
   }
 }

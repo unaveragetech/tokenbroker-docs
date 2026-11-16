@@ -38,6 +38,47 @@ msg = client.messages.create(model="gpt-oss:120b-cloud", max_tokens=512,
 Any client that lets you set the base URL, API key and model name can use it
 (set the base URL to `https://tokenbroker.org`; the client appends `/v1/messages`).
 
+## Use it with Claude Code
+
+Claude Code speaks the Anthropic Messages API, so it works against TokenBroker
+with environment variables only (no proxy):
+
+```bash
+export ANTHROPIC_BASE_URL=https://tokenbroker.org
+export ANTHROPIC_AUTH_TOKEN=tb_live_...        # your TokenBroker key
+export ANTHROPIC_API_KEY=""                     # must be empty so the token above is used
+export ANTHROPIC_MODEL=glm-5.3                  # any "Agent-ready" model
+export ANTHROPIC_SMALL_FAST_MODEL=glm-5.3-flash # used for background tasks
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=8192
+claude
+```
+
+Things that decide whether it works well:
+
+- **Pick an Agent-ready model.** Claude Code sends roughly 25-35k tokens of
+  system prompt and tool definitions on *every* turn. Models with a small
+  context window cannot even fit that, so the catalog marks models with a
+  64k+ window and tool support as **Agent-ready** (filter for it on the Models
+  page, or check `features.agent_ready` in `GET /v1/models`). Ollama Cloud
+  models such as `glm-5.3`, `kimi-k2.7-code` and `gpt-oss:120b-cloud` have
+  native tool calling and large windows and were verified end to end.
+- **Context errors are recoverable.** If a prompt does not fit, the API returns
+  `400 invalid_request_error` with `prompt is too long: N tokens > M maximum`,
+  which is exactly what Claude Code looks for to compact the conversation and
+  retry.
+- **Cloudflare `cf-*` models** run on Workers AI. On a free Workers AI account
+  they have a daily allocation (10,000 neurons) and some models are paid-only;
+  when that is exhausted the gateway fails over to the same model on Ollama
+  Cloud where one exists, and otherwise returns a `429`/`503` that clients
+  retry. Small-context `cf-*` models (for example 24k-32k windows) are not
+  Agent-ready.
+- **Rate limits.** Each turn can be 30k+ tokens, so a key with a 200,000
+  tokens/minute limit allows roughly six turns a minute. Raise the key's token
+  limit if long sessions hit `429`.
+- **Tool calls on models without native tools** are parsed by the gateway,
+  including the raw `<|call|>` text some gpt-oss hosts return, and are always
+  delivered to the client as normal `tool_use` blocks.
+
 ## Tools work on every model
 
 Send `tools` (Anthropic `input_schema` format) and handle `tool_use` /

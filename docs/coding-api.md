@@ -79,6 +79,9 @@ Things that decide whether it works well:
   including the raw `<|call|>` text some gpt-oss hosts return, and are always
   delivered to the client as normal `tool_use` blocks.
 
+Want Claude Code to *delegate* work to TokenBroker models instead of running on
+them? See [Claude as an orchestrator](claude-orchestrator.md).
+
 ## Tools work on every model
 
 Send `tools` (Anthropic `input_schema` format) and handle `tool_use` /

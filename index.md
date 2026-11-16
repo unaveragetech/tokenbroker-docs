@@ -37,6 +37,8 @@ answered your request; the service masks who fulfilled it.
 
 ## Documentation
 
+- **[Claude as an orchestrator](docs/claude-orchestrator.md)**: a ready-made Claude Code skill and a paste-in
+  prompt that let Claude delegate jobs and safe file edits to TokenBroker models.
 - **[Coding API](docs/coding-api.md)**: Anthropic-compatible `/v1/messages`, tools
   on every model, and safe hashed whole-file editing for coding agents.
 
